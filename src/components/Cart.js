@@ -2,6 +2,33 @@ import React, { Component } from 'react'
 import formatCurrency from '../util'
 
 class Cart extends Component {
+	state = {
+		showCheckout: false,
+		name: '',
+		email: '',
+		address: ''
+	}
+
+	showCheckout = () => {
+		this.setState({
+			showCheckout: true
+		})
+	}
+
+	handleInput = (e) => {
+		this.setState({ [e.target.name]: e.target.value })
+	}
+
+	createOrder = (e) => {
+		e.preventDefault()
+		const order = {
+			name: this.state.name,
+			email: this.state.email,
+			address: this.state.address,
+			cartItems: this.props.cartItems
+		}
+		this.props.createOrder(order)
+	}
 	render() {
 		const { cartItems } = this.props
 		let count = 0
@@ -41,7 +68,35 @@ class Cart extends Component {
 								</li>
 							))}
 						</ul>
-						<div>Total: {totalPrice}</div>
+						<div className="cart-summary">
+							<div>Total: {totalPrice}</div>
+							<button onClick={this.showCheckout}>Proceed</button>
+						</div>
+						{this.state.showCheckout && (
+							<div>
+								<form onSubmit={this.createOrder}>
+									<ul className="form-container">
+										<li>
+											<label>Email</label>
+											<input name="email" type="email" required onChange={this.handleInput} />
+										</li>
+										<li>
+											<label>Name</label>
+											<input name="name" type="text" required onChange={this.handleInput} />
+										</li>
+										<li>
+											<label>Address</label>
+											<input name="address" type="text" required onChange={this.handleInput} />
+										</li>
+										<li>
+											<button classsName="button primary" type="submit">
+												Checkout
+											</button>
+										</li>
+									</ul>
+								</form>
+							</div>
+						)}
 					</div>
 				)}
 			</div>
