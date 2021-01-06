@@ -182,3 +182,25 @@ footer {
 .cart-summary {
 	display: flex;
 }
+
+.product-details {
+	display: flex;
+	justify-content: space-between;
+	max-height: 96vh;
+
+	img {
+		max-height: 100vh;
+		max-width: 46rem;
+		margin: 0 auto;
+	}
+
+	.product-details-description {
+		padding: 30px 88px;
+	}
+}
+
+.close-modal {
+	position: absolute;
+	right: 1rem;
+	top: 2.5rem;
+}
