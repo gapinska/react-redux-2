@@ -3,6 +3,8 @@ import data from './data.json'
 import Products from './components/Products'
 import Filter from './components/Filter'
 import Cart from './components/Cart'
+import store from './store'
+import { Provider } from 'react-redux'
 
 class App extends React.Component {
 	constructor() {
@@ -76,33 +78,35 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div className="grid-container">
-				<header>
-					<a href="/">React Shopping Cart</a>
-				</header>
-				<main>
-					<div className="content">
-						<div className="main">
-							<Filter
-								count={this.state.products.length}
-								size={this.state.size}
-								sortValue={this.state.sortValue}
-								filterProducts={this.filterProducts}
-								sortProducts={this.sortProducts}
-							/>
-							<Products addToCart={this.addToCart} products={this.state.products} />
+			<Provider store={store}>
+				<div className="grid-container">
+					<header>
+						<a href="/">React Shopping Cart</a>
+					</header>
+					<main>
+						<div className="content">
+							<div className="main">
+								<Filter
+									count={this.state.products.length}
+									size={this.state.size}
+									sortValue={this.state.sortValue}
+									filterProducts={this.filterProducts}
+									sortProducts={this.sortProducts}
+								/>
+								<Products addToCart={this.addToCart} products={this.state.products} />
+							</div>
+							<div className="sidebar">
+								<Cart
+									cartItems={this.state.cartItems}
+									removeFromCart={this.removeFromCart}
+									createOrder={this.createOrder}
+								/>
+							</div>
 						</div>
-						<div className="sidebar">
-							<Cart
-								cartItems={this.state.cartItems}
-								removeFromCart={this.removeFromCart}
-								createOrder={this.createOrder}
-							/>
-						</div>
-					</div>
-				</main>
-				<footer>All right is reserved.</footer>
-			</div>
+					</main>
+					<footer>All right is reserved.</footer>
+				</div>
+			</Provider>
 		)
 	}
 }
