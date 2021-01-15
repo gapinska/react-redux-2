@@ -35,3 +35,7 @@ Then performing following
 sudo apt update
 sudo apt install -y mongodb
 sudo systemctl status mongodb
+
+
+npm run server 
+npm start
